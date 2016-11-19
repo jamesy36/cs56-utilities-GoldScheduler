@@ -13,6 +13,16 @@
   <property name="databaseFile" value ="tmp/golder.db" />
   <property name="sqlTableCommands" value="upload/GolderTables.txt" />
 
+  <!-- use jar of other scapper-->
+  <property name="jar.file" value="cs56-utilities-GoldScheduler.jar"/>
+
+  <!-- try this
+  <path id="project.class.path">
+    <pathelement location="build" />
+    <pathelement location="lib/junit-4.8.2.jar" />
+  </path>
+  -->
+  
   <target name="init" description="compile">
 	<mkdir dir="build" />
   </target>
@@ -28,6 +38,17 @@
     </javac>
   </target>
 
+  <!-- scraper target-->
+  <target name="jar" depends="compile" description="create a jar">
+    <mkdir dir="build/jar"/>
+    <jar destfile="${jar.file}" basedir="build">
+     <!-- <manifest>
+	<attribute name="Main-Class" value="GUI.MainPage"/>
+      </manifest>-->
+    </jar>
+  </target>
+
+  
  <target name="javadoc" depends="compile">
 
       <delete dir="javadoc" quiet="true" />
