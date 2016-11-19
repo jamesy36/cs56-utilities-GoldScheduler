@@ -14,7 +14,7 @@
   <property name="sqlTableCommands" value="upload/GolderTables.txt" />
 
   <!-- use jar of other scapper-->
-  <property name="jar.file" value="cs56-utilities-GoldScheduler.jar"/>
+  <property name="jar.file" value="cs56-scrapers-ucsb-curriculum.jar"/>
 
   <!-- try this
   <path id="project.class.path">
@@ -42,9 +42,9 @@
   <target name="jar" depends="compile" description="create a jar">
     <mkdir dir="build/jar"/>
     <jar destfile="${jar.file}" basedir="build">
-     <!-- <manifest>
-	<attribute name="Main-Class" value="GUI.MainPage"/>
-      </manifest>-->
+      <manifest>
+	<attribute name="Main-Class" value="tmp.golder.db"/>
+      </manifest>
     </jar>
   </target>
 
