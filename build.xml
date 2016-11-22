@@ -4,8 +4,8 @@
        name: Group 3-->
 
   <property environment="env"/> <!-- load the environment variables -->
-  <property name="webRoot" value="${env.HOME}/public_html/cs48" />
-  <property name="webBaseURL" value="http://www.cs.ucsb.edu/~${env.USER}/cs48" />
+  <property name="webRoot" value="${env.HOME}/public_html/" />
+  <property name="webBaseURL" value="http://www.cs.ucsb.edu/~${env.USER}/" />
   <property name="projectName" value="Golder" />
   <property name="javadocDest" value="${webRoot}/${projectName}/javadoc" />
   <property name="javadocURL" value="${webBaseURL}/${projectName}/javadoc" />
@@ -13,7 +13,7 @@
   <property name="databaseFile" value ="tmp/golder.db" />
   <property name="sqlTableCommands" value="upload/GolderTables.txt" />
 
-  <!-- use jar of other scapper-->
+  <!-- use jar of other scraper-->
   <property name="jar.file" value="cs56-scrapers-ucsb-curriculum.jar"/>
 
   <!-- try this
@@ -34,6 +34,7 @@
       <classpath>
         <pathelement location="build"/>
       	<pathelement location="lib/sqlite-jdbc-3.15.1.jar"/>
+	<pathelement location = "lib/CurriculumScraper-v1.0.1.jar"/>
       </classpath>
     </javac>
   </target>
@@ -43,7 +44,7 @@
     <mkdir dir="build/jar"/>
     <jar destfile="${jar.file}" basedir="build">
       <manifest>
-	<attribute name="Main-Class" value="tmp.golder.db"/>
+	<attribute name="Main-Class" value="scraper.UCSBCurrciulumSearch"/>
       </manifest>
     </jar>
   </target>
@@ -73,7 +74,8 @@
      <java fork="true" classname="GUI.Golder" classpath="build">
 	  <classpath>
         <pathelement location="build"/>
-		<pathelement location="lib/sqlite-jdbc-3.15.1.jar"/>
+	<pathelement location="lib/sqlite-jdbc-3.15.1.jar"/>
+		<pathelement location = "lib/CurriculumScraper-v1.0.1.jar"/>
       </classpath>
 	</java>
   </target>
@@ -92,6 +94,7 @@
       <classpath>
         <pathelement location="build"/>
         <pathelement location="lib/sqlite-jdbc-3.15.1.jar"/>
+	<pathelement location = "lib/CurriculumScraper-v1.0.1.jar"/>
       </classpath>
     </javac>
   </target>
@@ -100,7 +103,8 @@
     <java fork="true" classname="GUI.Login" classpath="build">
 	  <classpath>
         <pathelement location="build"/>
-		<pathelement location="lib/sqlite-jdbc-3.15.1.jar"/>
+	<pathelement location="lib/sqlite-jdbc-3.15.1.jar"/>
+	<pathelement location = "lib/CurriculumScraper-v1.0.1.jar"/>
       </classpath>
 	</java>
   </target>
@@ -111,6 +115,7 @@
       <classpath>
         <pathelement location="build"/>
         <pathelement location="lib/sqlite-jdbc-3.15.1.jar"/>
+	<pathelement location = "lib/CurriculumScraper-v1.0.1.jar"/>
       </classpath>
     </javac>
   </target>
@@ -119,7 +124,8 @@
     <java fork="true" classname="GUI.MainPage" classpath="build">
 	  <classpath>
         <pathelement location="build"/>
-		<pathelement location="lib/sqlite-jdbc-3.15.1.jar"/>
+	<pathelement location="lib/sqlite-jdbc-3.15.1.jar"/>
+	<pathelement location = "lib/CurriculumScraper-v1.0.1.jar"/>
       </classpath>
 	</java>
   </target>
@@ -129,6 +135,7 @@
       <classpath>
         <pathelement location="build"/>
         <pathelement location="lib/sqlite-jdbc-3.15.1.jar"/>
+	<pathelement location = "lib/CurriculumScraper-v1.0.1.jar"/>
       </classpath>
     </javac>
   </target>
@@ -139,6 +146,7 @@
 	      <classpath>
 	        <pathelement location="build"/>
 	        <pathelement location="lib/sqlite-jdbc-3.15.1.jar"/>
+		<pathelement location = "lib/CurriculumScraper-v1.0.1.jar"/>
 	      </classpath>
 	    </javac>
 	  </target>
@@ -147,7 +155,8 @@
 	    <java fork="true" classname="GUI.UserInfo" classpath="build">
 		  <classpath>
 	        <pathelement location="build"/>
-			<pathelement location="lib/sqlite-jdbc-3.15.1.jar"/>
+		<pathelement location="lib/sqlite-jdbc-3.15.1.jar"/>
+		<pathelement location = "lib/CurriculumScraper-v1.0.1.jar"/>
 	      </classpath>
 		</java>
 	  </target>
@@ -156,7 +165,8 @@
     <java fork="true" classname="GUI.CreateAccount" classpath="build">
 	  <classpath>
         <pathelement location="build"/>
-		<pathelement location="lib/sqlite-jdbc-3.15.1.jar"/>		
+	<pathelement location="lib/sqlite-jdbc-3.15.1.jar"/>
+	<pathelement location = "lib/CurriculumScraper-v1.0.1.jar"/>
       </classpath>
 	</java>
   </target>

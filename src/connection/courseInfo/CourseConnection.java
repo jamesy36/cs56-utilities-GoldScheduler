@@ -1,4 +1,5 @@
 package connection.courseInfo;
+import edu.ucsb.cs56.projects.scrapers.ucsb_curriculum.* ;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,8 +22,8 @@ public class CourseConnection extends GolderConnection{
 	 * @return an array list of Majors
 	 * @throws SQLException throws exception if course can't be made
 	 */
-	public static String[] getMajor() throws SQLException {
-		Statement stmt = conn.createStatement();
+	public static String[] getMajor() {
+	    /*	Statement stmt = conn.createStatement();
 		ResultSet rs;
 		ArrayList<String> ms = new ArrayList<String>();
 		// String [] m = null;
@@ -36,7 +37,11 @@ public class CourseConnection extends GolderConnection{
 		    }
 		String [] m = new String[ms.size()];
 		m = ms.toArray(m);
-		return m;
+		return m;*/
+
+	    UCSBCurriculumSearch golder = new UCSBCurriculumSearch();
+	    golder.loadCourses(
+	    
 	}
 	/**
 	 * get an array of String of all Professors
