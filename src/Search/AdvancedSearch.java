@@ -1,6 +1,5 @@
 package Search;
-import java.util.ArrayList;
-import java.util.HashMap;
+import edu.ucsb.cs56.projects.scrapers.ucsb_curriculum.* ;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -9,12 +8,16 @@ import Course.Course;
 import Course.Lecture;
 import Schedule.Scheduler;
 import connection.courseInfo.CourseConnection;
-/**
- This class will allow the user to select from: Department, Professor, or General Education
- and indicate from a combobox, populated by category, what they are searching for.
- */
+import java.util.*;
+import java.io.File;
+import java.awt.image.BufferedImage;
+import java.io.PrintStream;
+
+
+// This class will allow the user to select from: Department, Professor, or General Educatio  and indicate from a combobox, populated by category, what they are searching for.
+ 
 public class AdvancedSearch{
-    private JPanel display;
+    /* private JPanel display;
     private JScrollPane scrollableDisplay;
     private JPanel control;
     private JPanel cDisplay;
@@ -32,7 +35,7 @@ public class AdvancedSearch{
     }
     /**
      * @param s Schedule saved in database
-     */
+    
     public AdvancedSearch(Scheduler s){
         this.schedule = s;
         geChecksList = new ArrayList<JCheckBox>();
@@ -40,21 +43,20 @@ public class AdvancedSearch{
     }
     /**
      *@return returns the full set display with both the control and course panels
-     */
     public JPanel getDisplay(){
         this.setDisplay();
         return this.display;
     }
     /**
      *@return returns the full display in a scrollPane
-     */
+     
     public JScrollPane getScrollDisplay(){
         this.scrollableDisplay = new JScrollPane(this.getDisplay());
         return this.scrollableDisplay;
     }
     /**
      *Initializes the display
-     */
+     
     public void setDisplay(){
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
@@ -63,49 +65,49 @@ public class AdvancedSearch{
         this.display = panel;
     }
     //SCHEDULE
-    /**
+   
      *This will get the schedule display
      * @return the panel with the schedule display
-     */
+    
     public JPanel displaySchedule(){
         Scheduler s = this.schedule;
         JPanel display = new JPanel();
         display.add(s.getMain());
         return display;
     }
-    /**
+    
      *@return returns the schedule.
-     */
+    
     public Scheduler getSchedule(){
         return this.schedule;
     }
-    /**
+    
      *sets the schedule to an empty one.
-     */
+     
     public void resetSchedule(){
         this.schedule = new Scheduler();
     }
     //COURSE DISPLAY
-    /**
+    
      *Sets courses to a blank screen
-     */
+     
     public void setCourses(){
         JPanel blank = new JPanel();
         blank.setPreferredSize(new Dimension(600,533));
         blank.setBackground(this.darkerColor);
         this.cDisplay = blank;
     }
-    /**
+    
      *Sets course display according to an unsorted courseList
      * @param courseList the array of courses to be put into display
-     */
+     
     public void setCourses(ArrayList<Course> courseList){
         this.setCoursesBy3DArray(SimpleSearch.getGroupedResults(SimpleSearch.groupCourseIDResults(courseList)));
     }
-    /**
+    
      *Sets the course display according to an ArrayList of Courses.
      *@param courseList a 3D ArrayList sorted to make it easy to dispay the course results
-     */
+     
     public void setCoursesBy3DArray(ArrayList<ArrayList<ArrayList<Course>>> courseList){
         JPanel courses = new JPanel();
         courses.setBackground(this.darkerColor);
@@ -139,7 +141,7 @@ public class AdvancedSearch{
              4+. Section info
              columns: 4
              (Days, times, instrucors, [location,] addButton)
-             */
+             
             int rows = 2;
             int columns = 4;
             int numLects = courseList.get(n).size();
@@ -232,56 +234,57 @@ public class AdvancedSearch{
         }
         this.cDisplay = courses;
     }
-    /**
+    
      *@return sets panel to a blank panel and returns it
-     */
+     
     public JPanel getCourses(){
         this.setCourses();
         return this.cDisplay;
     }
-    /**
+   
      *@param i indicator that you don't want to call set courses
      *@return gets the current course display
-     */
+    
     public JPanel getCourses(int i){
         return this.cDisplay;
     }
-    /**
+   
      *@param list and ArrayList of unsorted courses
      *@return Calls the setCourses using an arrayList of Courses and returns the resulting panel.
-     */
+    
     public JPanel getCourses(ArrayList<Course> list){
         this.setCoursesBy3DArray(SimpleSearch.getGroupedResults(SimpleSearch.groupCourseIDResults(list)));
         return this.cDisplay;
     }
-    /**
+    
      *@param list a 3D ArrayList of sorted courses
      *@return A panel that uses the sorted ArrayList to display the courses
-     */
+    
     public JPanel getCoursesBy3DArray(ArrayList<ArrayList<ArrayList<Course>>> list){
         this.setCoursesBy3DArray(list);
         return this.cDisplay;
     }
     //CONTROL
-    /**
+   
      *Calls setControl for a blank panel to display
      * @return the Control panel
-     */
+    
     public JPanel getControl() {
         this.setControl();
         return this.control;
     }
-    /**
+   
      *@param i indicator that you don't want to call set courses
      *@return gets the current control display
-     */
+    
     public JPanel getControl(int i) {
         return this.control;
     }
-    /**
+   
      *Sets the display panel and then returns it.
      *Creates the display panel that includes a control panel that you can type a keyword into
-    */
+   
+
     public void setControl(){
         JPanel controlPanel = new JPanel();
         int len = this.searchOptions.length;
@@ -322,7 +325,7 @@ public class AdvancedSearch{
     /**
      *@param s Indicates which option to populate the combobox with
      *@return a String array to select from that relates to the option chosen
-     */
+    
     public String[] getList(String s){
         if(s=="Department"){
             String[] m;
@@ -347,11 +350,11 @@ public class AdvancedSearch{
             return m;
         }
     }
-    /**
+   
      *@param key A keyword taken from the dropdown menu that represents what the user is looking for
      *@param option The button clicked indicating which category the keyword belongs to
      * @return the arrayList of courses returned from the database
-     */
+    
     public ArrayList<Course> getResults(ArrayList<String> key, ArrayList<String>  option){
         ArrayList<Course> courseList = null;
 		try {
@@ -363,9 +366,9 @@ public class AdvancedSearch{
         return courseList;
     }
     //ACTION LISTENER CLASSES
-    /**
+    
      *Class to view a specific course upon a button being pressed
-     */
+     
     class viewListener implements ActionListener{
         private Course c1;
         private AdvancedSearch p;
@@ -395,7 +398,7 @@ public class AdvancedSearch{
     }
     /**
      *Allows the user to return to the populated search view after viewing a specific course
-     */
+     
     class backListener implements ActionListener{
         private AdvancedSearch outer;
         private ArrayList<ArrayList<ArrayList<Course>>> cList1;
@@ -418,7 +421,7 @@ public class AdvancedSearch{
     }
     /**
      *Populates a combobox according to a selcted radioButton
-     */
+    
     class radioListener implements ActionListener{
         private JPanel p;
         private AdvancedSearch a;
@@ -466,7 +469,7 @@ public class AdvancedSearch{
     }
     /**
      *Searches the database according to the choices selected
-     */
+     
     class submitListener implements ActionListener{
         private AdvancedSearch a;
         private JPanel courseResultsPanel;
@@ -515,7 +518,7 @@ public class AdvancedSearch{
     }
     /**
      *Searches the database according to the choice selected from the combobox
-     */
+    
     class menuListener implements ActionListener{
         private AdvancedSearch a;
         private String optionString;
@@ -546,7 +549,7 @@ public class AdvancedSearch{
     }
     /**
      *Allows the user to add classes to their schedule
-     */
+     
     class addListener implements ActionListener{
         private Scheduler sch;
         private Course c;
@@ -561,3 +564,195 @@ public class AdvancedSearch{
         }
     }
 }
+*/
+
+	static  JFrame frame;
+
+	
+	public static void main (String [] args){
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run(){
+				displayJFrame();
+			}
+		} );
+	
+	}
+	
+	static void displayJFrame() {
+		try{
+			
+			frame = new JFrame();
+			
+			/* 
+			 TODO: scrape the subject, years, and course levels so
+			 that if the website makes changes, it reflects in the program
+			*/
+			
+			//Array of all the different departmens on GOLD
+			String [] subject = {"ANTH" , "ART", "ART CS", "ARTHI", "ARTST", "AS AM", "ASTRO", "BIOL",
+				"BIOL CS", "BMSE","BL ST", "CH E", "CHEM CS", "CHEM", "CH ST", "CHIN", "CLASS",
+				"COMM", "C LIT", "CMPSC", "CMPSCCS", "CMPTG", "CMPTGCS", "CNCSP", "DANCE", "DYNS",
+				"EARTH", "EACS", "EEMB", "ECON", "ED", "ECE", "ENGR", "ENGL", "ESM", "ENV S", "ESS",
+				"ES", "FEMST", "FAMST", "FLMST", "FR", "GEN S", "GEN SCS", "GEOG", "GER", "GPS", "GLOBL",
+				"GREEK", "HEB", "HIST", "INT", "INT CS", "ITAL", "JAPAN", "KOR", "LATIN", "LAIS", "LING",
+				"LIT", "LIT CS", "MARSC", "MATRL", "MATH", "MATH CS", "ME", "MAT", "ME ST", "MES",
+				"MS", "MCDB", "MUS", "MUS CS", "MUS A", "PHIL", "PHYS", "PHYS CS", "POL S", "PORT", "PSY", "RG ST",
+				"RENST", "SLAV", "SOC", "SPAN", "SHS", "PSTAT", "TMP", "THTR", "WRIT", "W&L", "W&L CS"};
+			
+			/* Different quarters with their corresponding number ID (used by previous programmers
+			to identify each quarter */
+			Vector quarter = new Vector();
+			quarter.addElement( new ItemGolder("1", "Winter"));
+			quarter.addElement( new ItemGolder("2", "Spring"));
+			quarter.addElement( new ItemGolder("3", "Summer"));
+			quarter.addElement( new ItemGolder("4", "Fall"));
+			
+			//Array of years
+			String [] year = {"2016", "2015", "2014"};
+			
+			//Array of Course Levels
+			String [] level = {"Undergraduate", "Graduate", "ALL"};
+			
+			
+			//Creates ComboBoxes of the aforementioned search criteria
+			JComboBox subjectBox = new JComboBox(subject);
+			subjectBox.setEditable(false);
+			
+			JComboBox quarterBox = new JComboBox(quarter);
+			quarterBox.setEditable(false);
+			
+			JComboBox yearBox = new JComboBox(year);
+			yearBox.setEditable(false);
+			
+			JComboBox levelBox = new JComboBox(level);
+			levelBox.setEditable(false);
+			
+			//Search Button
+			JButton search = new JButton("SEARCH");
+			
+			
+			//Creates textArea that displays your search results
+			JTextArea textbox = new JTextArea(20, 40);
+			textbox.setEditable(false);
+			
+			//Redirects terminal output to GUI
+			PrintStream stream = new PrintStream(new CustomOutputStream(textbox));
+			System.setOut(stream);
+			System.setErr(stream);
+		
+			//Makes textarea scrollable
+			JScrollPane scrollbar = new JScrollPane(textbox);
+			
+			
+			JPanel panel = new JPanel();
+			panel.setLayout(new GridBagLayout());
+			GridBagConstraints constraints = new GridBagConstraints();
+
+			//set constraints and add Piclabel at top of panel
+			constraints.fill = GridBagConstraints.HORIZONTAL;
+			constraints.gridx = 0;
+			constraints.gridy = 0;
+			constraints.weightx = .5;
+			constraints.weighty = .5;
+			constraints.gridwidth = 4;
+
+			//constraints for second row of subject, quarter, year, and level boxes
+			//then add them to pane
+			constraints.gridwidth = 1;
+			constraints.gridy = 1;
+			constraints.insets = new Insets(0, 15, 0, 15);
+			panel.add(subjectBox, constraints);
+			constraints.gridx = 1;
+			panel.add(quarterBox,constraints);
+			constraints.gridx = 2;
+			panel.add(yearBox, constraints);
+			constraints.gridx = 3;
+			panel.add(levelBox, constraints);
+
+			//constraints for third row of search button
+			//then add them to pane
+			constraints.insets = new Insets(0, 0, 0, 0);
+			constraints.gridy = 2;
+			constraints.gridx = 1;
+			constraints.gridwidth = 2;
+			panel.add(search, constraints);
+
+			//constraints for displayed text field (scrollbar)
+			//then add them to pane
+			constraints.gridx = 0;
+			constraints.gridy = 3;
+			constraints.gridheight = 8;
+			constraints.gridwidth = 5;
+			constraints.weighty = 0.5;
+			constraints.ipady = 200;
+			constraints.ipadx = 800;
+			scrollbar.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+			scrollbar.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+			constraints.fill = GridBagConstraints.VERTICAL;
+			constraints.insets = new Insets(10, 0, 100, 0);
+			panel.add(scrollbar, constraints);
+
+
+
+		       
+			
+			search.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent ee) {
+					try{
+						//reset the textbox so it clears each time you press search
+						textbox.setText(null);
+						
+						//instantiate a new Curriculum search object
+						UCSBCurriculumSearch cssc = new UCSBCurriculumSearch();
+						
+						//get the values of the selections
+						String dept = String.valueOf(subjectBox.getSelectedItem());
+						
+						ItemGolder quarter = (ItemGolder) quarterBox.getSelectedItem();
+						String quarter2 = quarter.getId();
+						
+						String year = String.valueOf(yearBox.getSelectedItem());
+						String lev = String.valueOf(levelBox.getSelectedItem());
+						
+						
+						String qtr = year + quarter2;
+						
+						//search with the corresponding selections in the gui
+						cssc.loadCourses(dept, qtr, lev);
+						cssc.printLectures();
+
+
+						//set scrollbar to top of scrollpane
+						javax.swing.SwingUtilities.invokeLater(new Runnable() {
+							public void run() {
+								scrollbar.getVerticalScrollBar().setValue(0);
+							}
+						});
+					}
+					catch (Exception e){
+						System.err.println(e);
+						e.printStackTrace();
+					}
+				}
+			} );
+			
+			//setup the JFrame
+			frame.setDefaultCloseOperation(JFrame. EXIT_ON_CLOSE) ;
+			frame.getContentPane().add(panel);
+			frame.setSize(1280, 720);
+			frame.setVisible(true);
+			
+			
+		}catch(Exception e){
+			System.err.println(e);
+			e.printStackTrace();
+		}
+		
+	}
+}
+
+
+
+
+
+

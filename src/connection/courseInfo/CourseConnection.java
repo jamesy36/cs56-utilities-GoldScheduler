@@ -38,9 +38,19 @@ public class CourseConnection extends GolderConnection{
 		String [] m = new String[ms.size()];
 		m = ms.toArray(m);
 		return m;*/
+	    String [] subject = {"ANTH" , "ART", "ART CS", "ARTHI", "ARTST", "AS AM", "ASTRO", "BIOL",
+				"BIOL CS", "BMSE","BL ST", "CH E", "CHEM CS", "CHEM", "CH ST", "CHIN", "CLASS",
+				"COMM", "C LIT", "CMPSC", "CMPSCCS", "CMPTG", "CMPTGCS", "CNCSP", "DANCE", "DYNS",
+				"EARTH", "EACS", "EEMB", "ECON", "ED", "ECE", "ENGR", "ENGL", "ESM", "ENV S", "ESS",
+				"ES", "FEMST", "FAMST", "FLMST", "FR", "GEN S", "GEN SCS", "GEOG", "GER", "GPS", "GLOBL",
+				"GREEK", "HEB", "HIST", "INT", "INT CS", "ITAL", "JAPAN", "KOR", "LATIN", "LAIS", "LING",
+				"LIT", "LIT CS", "MARSC", "MATRL", "MATH", "MATH CS", "ME", "MAT", "ME ST", "MES",
+				"MS", "MCDB", "MUS", "MUS CS", "MUS A", "PHIL", "PHYS", "PHYS CS", "POL S", "PORT", "PSY", "RG ST",
+				"RENST", "SLAV", "SOC", "SPAN", "SHS", "PSTAT", "TMP", "THTR", "WRIT", "W&L", "W&L CS"};
 
-	    UCSBCurriculumSearch golder = new UCSBCurriculumSearch();
-	    golder.loadCourses(
+	    return subject;
+
+
 	    
 	}
 	/**
@@ -49,7 +59,7 @@ public class CourseConnection extends GolderConnection{
 	 * @throws SQLException throws exception if course can't be made
 	 */
 	public static String[] getProfessor() throws SQLException {
-		String [] m = null;
+	    	String [] m = null;
 		Statement stmt = conn.createStatement();
 		ResultSet rs;
 		if (stmt.execute(String.format("SELECT DISTINCT instructor_name FROM `spring_15_lecture`;"))) {
@@ -64,8 +74,12 @@ public class CourseConnection extends GolderConnection{
 	        	else --i;
 	        }
 	    }
-		return m;
+	    return m;
+
+	    //    UCSBCurriculumSearch golder = new UCSBCurriculumSearch();
+	    // golder.loadCourses(
 	}
+
 	/**
 	 * get a course based on lecture ID and section ID
 	 * @param lectureId Course number id for lecture
